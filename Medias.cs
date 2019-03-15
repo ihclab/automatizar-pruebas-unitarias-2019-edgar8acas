@@ -11,6 +11,7 @@ namespace AutomatizarPruebasUnitarias {
         /**
          * Calcula y regresa la media artimética
          */
+         // Silly comment
         public static double mediaAritmetica(params int[] vals) { }
 
         /**

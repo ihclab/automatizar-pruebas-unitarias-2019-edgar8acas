@@ -25,17 +25,42 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             {
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
-
-            string[] problem1 = splitCase((string) testCases[0]);
-            for (int i = 0; i < problem1.Length; i++)
-            {
-                Console.WriteLine(problem1[i]);
-            }
         }
         private static String[] splitCase(String testCase) 
         {
             return testCase.Split(":");
         }
 
+        private object[] convertData(String data)
+        {
+            string[] separatedData = data.Split(" ");
+            object[] convertedData = new object[separatedData.Length]; 
+            for (int i = 0; i < separatedData.Length; i++)
+            {
+                switch (separatedData[i])
+                {
+                    case "NULL": 
+                        convertedData[i] = null;
+                    break;
+
+                    case "0":
+                        convertedData[i] = 0;
+                    break;
+
+                    default:
+                        double n = Convert.ToDouble(convertedData[i]);
+                        if(n % 1 == 0)
+                        {   // convirtiendo enteros
+                            convertedData[i] = Convert.ToInt32(n);
+                        } 
+                        else
+                        {   
+                            convertedData[i] = n;
+                        }
+                    break;
+                }
+            }
+            return convertedData;
+        } 
     }
 }

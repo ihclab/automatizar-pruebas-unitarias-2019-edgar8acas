@@ -12,7 +12,17 @@ namespace AutomatizarPruebasUnitarias {
          * Calcula y regresa la media artimética
          */
         public static double mediaAritmetica(params object[] vals) { 
-            return 0;
+            double suma = 0;
+            if(vals.Length == 1 && vals[0] == null)
+            {
+                return 0;
+            }
+            for (int i = 0; i < vals.Length; i++)
+            {
+                if(vals[i] != null)
+                    suma += (double) vals[i];
+            }
+            return suma / vals.Length;
         }
 
         /**

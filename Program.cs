@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections;
+using AutomatizarPruebasUnitarias;
 
 namespace automatizar_pruebas_unitarias_2019_edgar8acas
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             ArrayList testCases = new ArrayList();
@@ -61,6 +63,32 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 }
             }
             return convertedData;
-        } 
+        }
+        private static object test(object[] inputs, String methodToTest)
+        {
+            switch (methodToTest)
+            {
+                case "mediaAritmetica":
+                    return Medias.mediaAritmetica(inputs);
+                break;
+
+                case "mediaGeometrica":
+                    return Medias.mediaGeometrica(inputs);
+                break;
+
+                case "mediaArmonica":
+                    return Medias.mediaArmonica(inputs);
+                break;
+                default:
+                    throw new Exception("Unvalid method");
+                break;
+            }
+            
+        }
+
+        private static bool assert(object expected, object resulted)
+        {
+            return expected == resulted;
+        }
     }
 }

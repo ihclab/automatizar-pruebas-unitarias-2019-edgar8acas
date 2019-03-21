@@ -11,7 +11,7 @@ namespace AutomatizarPruebasUnitarias {
         /**
          * Calcula y regresa la media artimética
          */
-        public static double mediaAritmetica(params int[] vals) { 
+        public static double mediaAritmetica(params object[] vals) { 
             return 0;
         }
 
@@ -25,14 +25,14 @@ namespace AutomatizarPruebasUnitarias {
         /**
          *  Usa raizEnesima para calcular y regresar la media geométrica
          */
-        public double mediaGeometrica(params int[] vals) { 
+        public static double mediaGeometrica(params object[] vals) { 
             return 0;
         }
 
         /**
          * Este método no está implementado.
          */
-        public static double mediaArmonica(params int[] vals) { 
+        public static double mediaArmonica(params object[] vals) { 
             return 0;
         }
     }

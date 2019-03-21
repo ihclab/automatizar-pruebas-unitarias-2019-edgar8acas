@@ -15,7 +15,8 @@ namespace AutomatizarPruebasUnitarias {
             double suma = 0;
             vals = quitNulls(vals);
             if(vals.Length == 0) 
-                return 0;
+                throw new Exception("All the values cannot be null.");
+
             for (int i = 0; i < vals.Length; i++)
             {   
                 suma += (double) vals[i];
@@ -39,10 +40,14 @@ namespace AutomatizarPruebasUnitarias {
 
             vals = quitNulls(vals);
             if(vals.Length == 0) 
-                return 0;
+                throw new Exception("All the values cannot be null.");
 
             for (int i = 0; i < vals.Length; i++)
             {
+                if((double) vals[i] <= 0) 
+                {
+                    throw new Exception("Cannot obtain geometric mean of non-positive values.");
+                }
                 radicand *= (double) vals[i];
             }
 
@@ -57,8 +62,10 @@ namespace AutomatizarPruebasUnitarias {
 
             vals = quitNulls(vals);
             if(vals.Length == 0) 
-                return 0;
-                
+                throw new Exception("All the values cannot be null.");
+            vals = vals.Where(val => (double) val != 0).ToArray();
+            if(vals.Length == 0)
+                throw new Exception("All the values cannot be zero.");
             for (int i = 0; i < vals.Length; i++)
             {
                 suma += 1 / (double) vals[i];

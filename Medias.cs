@@ -13,14 +13,10 @@ namespace AutomatizarPruebasUnitarias {
          */
         public static double mediaAritmetica(params object[] vals) { 
             double suma = 0;
-            if(vals.Length == 1 && vals[0] == null)
-            {
-                return 0;
-            }
+
             for (int i = 0; i < vals.Length; i++)
             {
-                if(vals[i] != null)
-                    suma += (double) vals[i];
+                suma += (double) vals[i];
             }
             return suma / vals.Length;
         }
@@ -29,21 +25,35 @@ namespace AutomatizarPruebasUnitarias {
          * Calcula y regresa la raíz enésima = x^(1/n)
          */
         private static double raizEnesima(double x, int n) { 
-            return 0;
+            return Math.Pow(x, 1/n);
         }
 
         /**
          *  Usa raizEnesima para calcular y regresar la media geométrica
          */
         public static double mediaGeometrica(params object[] vals) { 
-            return 0;
+            double radicand = 0;
+
+            for (int i = 0; i < vals.Length; i++)
+            {
+                radicand *= (double) vals[i];
+            }
+
+            return raizEnesima(radicand, vals.Length);
         }
 
         /**
          * Este método no está implementado.
          */
         public static double mediaArmonica(params object[] vals) { 
-            return 0;
+            double suma = 0;
+
+            for (int i = 0; i < vals.Length; i++)
+            {
+                suma += 1 / (double) vals[i];
+            }
+            
+            return vals.Length / suma;
         }
     }
 }

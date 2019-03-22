@@ -41,26 +41,22 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             return testCase.Split(":");
         }
 
-        private static object[] convertData(String data)
+        private static object convertData(String data)
         {
-            string[] separatedData = data.Split(" ");
-            object[] convertedData = new object[separatedData.Length]; 
-            for (int i = 0; i < separatedData.Length; i++)
+            object convertedData;
+            switch (data)
             {
-                switch (separatedData[i])
-                {
-                    case "NULL": 
-                        convertedData[i] = null;
-                    break;
+                case "NULL": 
+                    convertedData = null;
+                break;
 
-                    case "Exception":
-                        convertedData[i] = separatedData[i];
-                    break;
+                case "Exception":
+                    convertedData = data;
+                break;
 
-                    default:
-                        convertedData[i] = Convert.ToDouble(separatedData[i]);
-                    break;
-                }
+                default:
+                    convertedData = Convert.ToDouble(data);
+                break;
             }
             return convertedData;
         }
@@ -84,21 +80,24 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             
         }
 
-        private static bool assert(object expected, object[] inputs, String methodToTest)
+        private static bool assert(object expected, object[] inputs, String methodToTest, ref object result)
         {
-            object[] expectedData = expected as object[];
+            //object[] expectedData = expected as object[];
             try
             {
-                double result = (double) test(inputs, methodToTest);
-                if ((double) expectedData[0] == result)
+                result = (double) test(inputs, methodToTest);
+                if ((double) expected == (double) result)
                     return true;
                 return false;
             }
             catch (System.Exception e)
             {
                 Console.WriteLine(e.Message);
-                if((string) expectedData[0] == "Exception")
+                if((string) expected == "Exception")
+                {
+                    result = "Exception";
                     return true;     
+                }
                 return false;
             }
         }

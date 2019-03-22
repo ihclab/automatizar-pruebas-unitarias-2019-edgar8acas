@@ -34,7 +34,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             return testCase.Split(":");
         }
 
-        private object[] convertData(String data)
+        private static object[] convertData(String data)
         {
             string[] separatedData = data.Split(" ");
             object[] convertedData = new object[separatedData.Length]; 
@@ -51,7 +51,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                     break;
 
                     default:
-                        double n = Convert.ToDouble(convertedData[i]);
+                        double n = Convert.ToDouble(separatedData[i]);
                         if(n % 1 == 0)
                         {   // convirtiendo enteros
                             convertedData[i] = Convert.ToInt32(n);

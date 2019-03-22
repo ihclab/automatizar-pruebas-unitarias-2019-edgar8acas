@@ -28,12 +28,28 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
 
+            Console.WriteLine("ID" + "\t\t" + "Resultado" + "\t\t" + "Método" + "\t\t" + "Calculado" + "\t\t" + "Esperado");
             foreach (var testCase in testCases)
             {
                 String[] splittedData = splitCase(testCase);
-                object[] inputs = convertData(splittedData[2]);
+                string[] stringInputs = splittedData[2].Split(" ");
+                object[] inputs = new object[stringInputs.Length];
+                for (int i = 0; i < stringInputs.Length; i++)
+                {
+                    inputs[i] = convertData(stringInputs[i]);
+                }
                 object expected = convertData(splittedData[3]);
-                Console.WriteLine(assert(expected, inputs, splittedData[1]));    
+                object testResult = null;
+                string assertionResult = assertionResult = assert(expected, inputs, splittedData[1], ref testResult) ? "Éxito" : "Falla";  ;
+                if (expected.GetType().Name == "Double")
+                {
+                    expected = (double) expected;
+                }
+                else
+                {
+                    expected = (string) expected;
+                }
+                Console.WriteLine(splittedData[0] + "\t\t" + assertionResult + "\t\t" + splittedData[1] + "\t\t" + testResult + "\t\t" + expected);
             }
         }
         private static String[] splitCase(String testCase) 
@@ -92,7 +108,6 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             }
             catch (System.Exception e)
             {
-                Console.WriteLine(e.Message);
                 if((string) expected == "Exception")
                 {
                     result = "Exception";

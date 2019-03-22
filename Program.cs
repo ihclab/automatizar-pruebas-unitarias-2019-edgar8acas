@@ -71,18 +71,16 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             {
                 case "mediaAritmetica":
                     return Medias.mediaAritmetica(inputs);
-                break;
 
                 case "mediaGeometrica":
                     return Medias.mediaGeometrica(inputs);
-                break;
 
                 case "mediaArmonica":
                     return Medias.mediaArmonica(inputs);
-                break;
+                
                 default:
                     throw new Exception("Unvalid method");
-                break;
+                
             }
             
         }

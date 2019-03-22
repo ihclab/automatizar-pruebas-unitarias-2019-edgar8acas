@@ -19,7 +19,7 @@ namespace AutomatizarPruebasUnitarias {
 
             for (int i = 0; i < vals.Length; i++)
             {   
-                suma += (double) vals[i];
+                suma += Convert.ToDouble(vals[i]);
             }
 
             return suma / vals.Length;

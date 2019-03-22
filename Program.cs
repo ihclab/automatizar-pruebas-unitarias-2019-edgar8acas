@@ -27,6 +27,14 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             {
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
+
+            foreach (var testCase in testCases)
+            {
+                String[] splittedData = splitCase(testCase);
+                object[] inputs = convertData(splittedData[2]);
+                object expected = convertData(splittedData[3]);
+                Console.WriteLine(assert(expected, inputs, splittedData[1]));    
+            }
         }
         private static String[] splitCase(String testCase) 
         {

@@ -20,7 +20,6 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                     while((line = sr.ReadLine()) != null)
                     {
                         testCases.Add(line);
-                        Console.WriteLine(line);
                     }
                 }
             }
@@ -48,6 +47,10 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
 
                     case "0":
                         convertedData[i] = 0;
+                    break;
+
+                    case "Exception":
+                        convertedData[i] = separatedData[i];
                     break;
 
                     default:
@@ -85,9 +88,23 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             
         }
 
-        private static bool assert(object expected, object resulted)
+        private static bool assert(object expected, object[] inputs, String methodToTest)
         {
-            return expected == resulted;
+            object[] expectedData = expected as object[];
+            try
+            {
+                double result = (double) test(inputs, methodToTest);
+                if ((double) expectedData[0] == result)
+                    return true;
+                return false;
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine(e.Message);
+                if((string) expectedData[0] == "Exception")
+                    return true;     
+                return false;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections;
 using AutomatizarPruebasUnitarias;
+using System.Collections.Generic;
 
 namespace automatizar_pruebas_unitarias_2019_edgar8acas
 {
@@ -10,7 +11,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
         
         static void Main(string[] args)
         {
-            ArrayList testCases = new ArrayList();
+            List<String> testCases = new List<String>();
             try
             {
                 using(StreamReader sr = new StreamReader("CasosPrueba.txt")) 

@@ -49,7 +49,9 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 {
                     expected = (string) expected;
                 }
-                Console.WriteLine(splittedData[0] + "\t\t" + assertionResult + "\t\t" + splittedData[1] + "\t\t" + testResult + "\t\t" + expected);
+                Console.Write(splittedData[0] + "\t\t" ); 
+                colorOutput(assertionResult);
+                Console.Write("\t\t" + splittedData[1] + "\t\t" + testResult + "\t\t" + expected + "\n\r");
             }
         }
         private static String[] splitCase(String testCase) 
@@ -115,6 +117,21 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 }
                 return false;
             }
+        }
+
+        private static void colorOutput(string assertionResult) 
+        {
+            if(assertionResult == "Éxito")
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(assertionResult);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(assertionResult);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

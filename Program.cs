@@ -45,24 +45,12 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                         convertedData[i] = null;
                     break;
 
-                    case "0":
-                        convertedData[i] = 0;
-                    break;
-
                     case "Exception":
                         convertedData[i] = separatedData[i];
                     break;
 
                     default:
-                        double n = Convert.ToDouble(separatedData[i]);
-                        if(n % 1 == 0)
-                        {   // convirtiendo enteros
-                            convertedData[i] = Convert.ToInt32(n);
-                        } 
-                        else
-                        {   
-                            convertedData[i] = n;
-                        }
+                        convertedData[i] = Convert.ToDouble(separatedData[i]);
                     break;
                 }
             }

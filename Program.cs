@@ -106,7 +106,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                     return true;
                 return false;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 if((string) expected == "Exception")
                 {

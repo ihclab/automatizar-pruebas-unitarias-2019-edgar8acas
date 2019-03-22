@@ -21,8 +21,8 @@ namespace AutomatizarPruebasUnitarias {
             {   
                 suma += Convert.ToDouble(vals[i]);
             }
-
-            return suma / vals.Length;
+            double result = suma / vals.Length;
+            return Math.Truncate(result * 10000) / 10000;
         }
 
         /**
@@ -50,8 +50,8 @@ namespace AutomatizarPruebasUnitarias {
                 }
                 radicand *= (double) vals[i];
             }
-
-            return raizEnesima(radicand, vals.Length);
+            double result = raizEnesima(radicand, vals.Length);
+            return Math.Truncate(result * 10000) / 10000;
         }
 
         /**
@@ -70,8 +70,8 @@ namespace AutomatizarPruebasUnitarias {
             {
                 suma += 1 / (double) vals[i];
             }
-
-            return vals.Length / suma;
+            double result = vals.Length / suma;
+            return Math.Truncate(result * 10000) / 10000;
         }
 
         private static object[] quitNulls(object[] values) 

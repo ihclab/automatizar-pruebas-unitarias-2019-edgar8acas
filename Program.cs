@@ -28,7 +28,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
 
-            Console.WriteLine("ID" + "\t\t" + "Resultado" + "\t\t" + "Método" + "\t\t" + "Calculado" + "\t\t" + "Esperado");
+            Console.WriteLine("ID" + "\t\t" + "Resultado" + "\t\t" + "Método" + "\t\t" + "Tiempo (ms)" + "\t\t" + "Calculado" + "\t\t" + "Esperado");
             foreach (var testCase in testCases)
             {
                 String[] splittedData = splitCase(testCase);
@@ -40,7 +40,8 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 }
                 object expected = convertData(splittedData[3]);
                 object testResult = null;
-                string assertionResult = assertionResult = assert(expected, inputs, splittedData[1], ref testResult) ? "Éxito" : "Falla";  ;
+                double timeTaken = 0;
+                string assertionResult = assertionResult = assert(expected, inputs, splittedData[1], ref testResult, ref timeTaken) ? "Éxito" : "Falla";  ;
                 if (expected.GetType().Name == "Double")
                 {
                     expected = (double) expected;
@@ -51,7 +52,7 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 }
                 Console.Write(splittedData[0] + "\t\t" ); 
                 colorOutput(assertionResult);
-                Console.Write("\t\t" + splittedData[1] + "\t\t" + testResult + "\t\t" + expected + "\n\r");
+                Console.Write("\t\t" + splittedData[1] + "\t\t" + timeTaken + "\t\t" + testResult + "\t\t" + expected + "\n\r");
             }
         }
         private static String[] splitCase(String testCase) 
@@ -98,18 +99,25 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
             
         }
 
-        private static bool assert(object expected, object[] inputs, String methodToTest, ref object result)
+        private static bool assert(object expected, object[] inputs, String methodToTest, ref object result, ref double timeTaken)
         {
-            //object[] expectedData = expected as object[];
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             try
             {
                 result = (double) test(inputs, methodToTest);
+
+                watch.Stop();
+                timeTaken = watch.Elapsed.Ticks / 10000d;
+
                 if ((double) expected == (double) result)
                     return true;
                 return false;
             }
             catch (System.Exception)
             {
+                watch.Stop();
+                timeTaken = watch.Elapsed.Ticks / 10000d;
+
                 if((string) expected == "Exception")
                 {
                     result = "Exception";

@@ -28,7 +28,11 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 Console.WriteLine("Error al leer el archivo: " + e.Message);
             }
 
-            Console.WriteLine("ID" + "\t\t" + "Resultado" + "\t\t" + "Método" + "\t\t" + "Tiempo (ms)" + "\t\t" + "Calculado" + "\t\t" + "Esperado");
+            string resultsString = "ID" + "\t\t" + "RESULTADO" + "\t\t" + "MÉTODO" + "\t\t" + "TIEMPO (ms)" + "\t\t" + "CALCULADO" + "\t\t" + "ESPERADO";
+            Console.WriteLine(resultsString);
+            resultsString += "\n\r";
+            int exitos = 0;
+            int fallas = 0;
             foreach (var testCase in testCases)
             {
                 String[] splittedData = splitCase(testCase);
@@ -41,19 +45,38 @@ namespace automatizar_pruebas_unitarias_2019_edgar8acas
                 object expected = convertData(splittedData[3]);
                 object testResult = null;
                 double timeTaken = 0;
-                string assertionResult = assertionResult = assert(expected, inputs, splittedData[1], ref testResult, ref timeTaken) ? "Éxito" : "Falla";  ;
-                if (expected.GetType().Name == "Double")
-                {
-                    expected = (double) expected;
+                string assertionResult;
+
+                if(assert(expected, inputs, splittedData[1], ref testResult, ref timeTaken)){
+                    assertionResult = "Éxito";
+                    exitos++;
+                } else {
+                    assertionResult = "Falla";
+                    fallas++;
                 }
-                else
-                {
+
+                if (expected.GetType().Name == "Double"){
+                    expected = (double) expected;
+                } else {
                     expected = (string) expected;
                 }
-                Console.Write(splittedData[0] + "\t\t" ); 
+
+                string resultsCaseStringPart1 = splittedData[0] + "\t\t";  
+                string resultsCaseStringPart2 = "\t\t" + splittedData[1] + "\t\t" + timeTaken + "\t\t" + testResult + "\t\t" + expected + "\n\r";
+                resultsString += resultsCaseStringPart1 + assertionResult + resultsCaseStringPart2; 
+                
+                Console.Write(resultsCaseStringPart1);
                 colorOutput(assertionResult);
-                Console.Write("\t\t" + splittedData[1] + "\t\t" + timeTaken + "\t\t" + testResult + "\t\t" + expected + "\n\r");
+                Console.Write(resultsCaseStringPart2);
             }
+            string finalString = $"FIN DE LA PRUEBA \r\nÉxitos: { exitos } \r\nFallas: { fallas } \n\r";
+            resultsString += finalString;
+
+            using (StreamWriter sw = new StreamWriter("ResultadosPrueba.txt"))
+            {
+                sw.Write(resultsString);
+            }
+            Console.Write(finalString);
         }
         private static String[] splitCase(String testCase) 
         {
